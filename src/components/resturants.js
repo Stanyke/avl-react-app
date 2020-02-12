@@ -26,7 +26,7 @@ class AllOpenResturants extends Component{
           .catch(error =>
             {
               console.log(error)
-              this.setState({erroMsg: 'Error Getting Users'})
+              this.setState({erroMsg: 'Error Getting Restaurants, Possibly Because Of Low Internet Connection'})
             })
       }
 
@@ -54,7 +54,7 @@ class AllOpenResturants extends Component{
               
               <br/>
               <br/>
-              
+
               <div class="col-12 col-sm-5">
                 <select id="HourOfDay" class="form-control" onChange={(value)=> this.setState({HourOfDay:value.target.value})}>
                   <option value="">Choose Hour Of The Day</option>
@@ -99,7 +99,8 @@ class AllOpenResturants extends Component{
             </div>
 
 
-            <div class="row">
+            <div class="row" id="filteredRestaurants"></div>
+            <div class="row" id="getAllRestaurants">
 
               <br/>
               <br/>
@@ -157,6 +158,8 @@ class AllOpenResturants extends Component{
       filterRestaurant()
       {
         const errorNotice = document.getElementById('popError');
+        const allRestaurantsSpace = document.getElementById('getAllRestaurants');
+        const filteredRestaurantsSpace = document.getElementById('filteredRestaurants');
 
         if (this.state.DayOfWeek === "")
         {
@@ -175,16 +178,58 @@ class AllOpenResturants extends Component{
 
           const routerUrl = "http://avl-app.herokuapp.com/"+filterDetails.day+"/"+filterDetails.time;
 
-          axios.post(routerUrl,filterDetails)
+          axios.get(routerUrl,filterDetails)
           .then(response=>{
 
             if (response.status === 200)
             {
-              errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button>"+response.data.data.sunday+"</div>";
+              console.log(response.data.resturants_open_such_date);
+              errorNotice.style.display = "none";
+              allRestaurantsSpace.style.display = "none";
+
+              const receiptC = [];
+
+              const gottenFilteredRestaurants = {receiptC: response.data.resturants_open_such_date}
+
+              filteredRestaurantsSpace.innerHTML = Array.isArray(receiptC) && receiptC.length > 0 && receiptC.map(gottenFilteredRestaurantsDetails => <div key={gottenFilteredRestaurantsDetails.resturant_id} class="card col-sm-4 col-12">
+
+                  <div class="table-responsive">
+                        <table class="table">
+
+                        <thead>
+                        <tr>
+                        <th>Name</th>
+                        <th>Type Of Food</th>
+                        <th>Michelin Star</th>
+                        <th>Parking?</th>
+                        <th>Delivery?</th>
+                        <th>Pay Deposit</th>
+                        <th>Evauation</th>
+                        </tr>
+                    </thead>
+                  <tbody class="thead-dark">
+                    <tr>
+                      <td class="col-4">{gottenFilteredRestaurantsDetails.resturant_name}</td>
+                      <td class="col-3">{gottenFilteredRestaurantsDetails.type_of_food}</td>
+                      <td class="col-1">{gottenFilteredRestaurantsDetails.michelin_star}</td>
+                      <td class="col-1">{gottenFilteredRestaurantsDetails.parking}</td>
+                      <td class="col-1">{gottenFilteredRestaurantsDetails.delivery}</td>
+                      <td class="col-1">{gottenFilteredRestaurantsDetails.pay_deposit}</td>
+                      <td class="col-1">{gottenFilteredRestaurantsDetails.evaluation}</td>
+                    </tr>
+                  </tbody>
+                  </table>
+                  </div>
+                  </div>);
+
             }
           }).catch((err) =>
           {
-
+            if (err.response)
+            {
+              errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button>"+err.response.data+"</div>";
+              console.log("Hello Error: "+err.response.data)
+            }
           })
         }
       }

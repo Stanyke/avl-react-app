@@ -34,7 +34,7 @@ class FilterResturants extends Component{
             time : this.state.HourOfDay
           }
 
-          const routerUrl = "http://avl-app.herokuapp.com/"+filterDetails.day+"/"+filterDetails.time;
+          const routerUrl = "https://avl-app.herokuapp.com/"+filterDetails.day+"/"+filterDetails.time;
 
           axios.get(routerUrl,filterDetails)
           .then(response=>{

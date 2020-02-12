@@ -42,11 +42,15 @@ class FilterResturants extends Component{
             if (response.status === 200)
             {
               console.log(response.data.resturants_open_such_date);
+              errorNotice.style.display = 'none';
+              document.getElementById('filterView').style.display = 'block';
               this.setState({filteredRestaurant: response.data.resturants_open_such_date})
             }}).catch((err) =>
             {
             if (err.response)
             {
+                document.getElementById('filterView').style.display = 'none';
+                errorNotice.style.display = 'block';
                 errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button>"+err.response.data+"</div>";
                 console.log("Hello Error: "+err.response.data)
             }
@@ -123,47 +127,46 @@ class FilterResturants extends Component{
               
                 <div id="popError" class="col-12"></div>
             
-                {
-                  Array.isArray(filteredRestaurant) && filteredRestaurant.length > 0 && filteredRestaurant.map(resturantDetails => <div key={resturantDetails.resturant_id} class="card col-sm-4 col-12">
-                      
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
+                <div id='filterView' class="col-12">
+                <div class="table-responsive col-12">
+                    <table class="table col-12">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type Of Food</th>
+                                <th>Michelin Star</th>
+                                <th>Parking?</th>
+                                <th>Delivery?</th>
+                                <th>Pay Deposit</th>
+                                <th>Evauation</th>
+                            </tr>
+                        </thead>
+                        {
+                            Array.isArray(filteredRestaurant) && filteredRestaurant.length > 0 && filteredRestaurant.map(resturantDetails => <tbody key={resturantDetails.resturant_id} class="thead-dark">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Type Of Food</th>
-                                    <th>Michelin Star</th>
-                                    <th>Parking?</th>
-                                    <th>Delivery?</th>
-                                    <th>Pay Deposit</th>
-                                    <th>Evauation</th>
+                                    <td>{resturantDetails.resturant_name}</td>
+                                    <td>{resturantDetails.type_of_food}</td>
+                                    <td>{resturantDetails.michelin_star}</td>
+                                    <td>{resturantDetails.parking}</td>
+                                    <td>{resturantDetails.delivery}</td>
+                                    <td>{resturantDetails.pay_deposit}</td>
+                                    <td>{resturantDetails.evaluation}</td>
                                 </tr>
-                            </thead>
-                            <tbody class="thead-dark">
-                                <tr>
-                                    <td class="col-4">{resturantDetails.resturant_name}</td>
-                                    <td class="col-3">{resturantDetails.type_of_food}</td>
-                                    <td class="col-1">{resturantDetails.michelin_star}</td>
-                                    <td class="col-1">{resturantDetails.parking}</td>
-                                    <td class="col-1">{resturantDetails.delivery}</td>
-                                    <td class="col-1">{resturantDetails.pay_deposit}</td>
-                                    <td class="col-1">{resturantDetails.evaluation}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>)
-                }
-                {
-                  erroMsg ? <div col="12"><br/>
-                  <div class='alert alert-danger fade show'>{erroMsg}</div>
-                  </div> : null
-                }
+                            </tbody>)
+                        }
+                    </table>
+                </div>
             </div>
-          </div>
-        );
-      }
+            {
+                erroMsg ? 
+                <div col="12">
+                    <br/>
+                    <div class='alert alert-danger fade show'>{erroMsg}</div>
+                </div> : null
+            }
+        </div>
+    </div>);
     }
+}
 
 export default FilterResturants;

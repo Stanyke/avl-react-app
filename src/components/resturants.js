@@ -36,48 +36,41 @@ class AllOpenResturants extends Component{
 
               <h2>Restaurant</h2>
 
-
+              <div class="row">
+                <Link class="btn btn-outline-info" to="/filter-restaurant">Filter Restaurant</Link>
+              </div>
 
             <div class="row">
-              <Link class="btn btn-outline-info" to="/filter-restaurant">Filter Restaurant</Link>
-              <br/>
-              <br/>
           
-              
-                  
-              {
-                  Array.isArray(resturant) && resturant.length > 0 && resturant.map(resturantDetails => <div key={resturantDetails.resturant_id} class="card col-sm-4 col-12">
-                      
-
-                      <div class="table-responsive">
-                        <table class="table">
-
+            <div class="table-responsive col-12">
+                    <table class="table col-12">
                         <thead>
-                        <tr>
-                        <th>Name</th>
-                        <th>Type Of Food</th>
-                        <th>Michelin Star</th>
-                        <th>Parking?</th>
-                        <th>Delivery?</th>
-                        <th>Pay Deposit</th>
-                        <th>Evauation</th>
-                        </tr>
-                    </thead>
-                  <tbody class="thead-dark">
-                    <tr>
-                      <td class="col-4">{resturantDetails.resturant_name}</td>
-                      <td class="col-3">{resturantDetails.type_of_food}</td>
-                      <td class="col-1">{resturantDetails.michelin_star}</td>
-                      <td class="col-1">{resturantDetails.parking}</td>
-                      <td class="col-1">{resturantDetails.delivery}</td>
-                      <td class="col-1">{resturantDetails.pay_deposit}</td>
-                      <td class="col-1">{resturantDetails.evaluation}</td>
-                    </tr>
-                  </tbody>
-                  </table>
-                  </div>
-                  </div>)
-                }
+                            <tr>
+                                <th>Name</th>
+                                <th>Type Of Food</th>
+                                <th>Michelin Star</th>
+                                <th>Parking?</th>
+                                <th>Delivery?</th>
+                                <th>Pay Deposit</th>
+                                <th>Evauation</th>
+                            </tr>
+                        </thead>
+                        {
+                            Array.isArray(resturant) && resturant.length > 0 && resturant.map(resturantDetails => <tbody key={resturantDetails.resturant_id} class="thead-dark">
+                                <tr>
+                                    <td>{resturantDetails.resturant_name}</td>
+                                    <td>{resturantDetails.type_of_food}</td>
+                                    <td>{resturantDetails.michelin_star}</td>
+                                    <td>{resturantDetails.parking}</td>
+                                    <td>{resturantDetails.delivery}</td>
+                                    <td>{resturantDetails.pay_deposit}</td>
+                                    <td>{resturantDetails.evaluation}</td>
+                                </tr>
+                            </tbody>)
+                        }
+                    </table>
+                </div>
+            </div>
                 {
                   erroMsg ? <div col="12"><br/>
                     <div class='alert alert-danger fade show'>{erroMsg}</div>
@@ -85,7 +78,6 @@ class AllOpenResturants extends Component{
                 }
 
             </div>
-          </div>
         );
       }
     }

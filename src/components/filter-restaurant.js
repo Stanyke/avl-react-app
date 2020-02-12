@@ -19,11 +19,11 @@ class FilterResturants extends Component{
     {
         const errorNotice = document.getElementById('popError');
 
-        if (this.state.DayOfWeek === "")
+        if (this.state.DayOfWeek == "")
         {
           errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Day Of The Week Not Selected</strong></div>";
         }
-        else if (this.state.HourOfDay === "")
+        else if (this.state.HourOfDay == "")
         {
           errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Hour Of The Day Not Selected</strong></div>";
         }

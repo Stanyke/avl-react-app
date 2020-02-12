@@ -32,38 +32,46 @@ class AllOpenResturants extends Component{
 
         const { resturant, erroMsg } = this.state
         return (
-          <div class="container-fluid">
+          <div class="container">
+
+              <h2>Resturant</h2>
             <div class="row">
 
-              <div class="newT">
-                <Link class="btn btn-outline-success" to="/">New Todo</Link>
-              </div>
+              
 
               <br/>
-              <table class="table">
-                  
+              <br/>
+          
+              <div class="col-3">Name</div>
+              <div class="col-3">Type Of Food</div>
+              <div class="col-1">Michelin Star</div>
+              <div class="col-1">Parking?</div>
+              <div class="col-1">Delivery?</div>
+              <div class="col-1">Pay Deposit</div>
+              <div class="col-1">Evauation</div>
                   
               {
-                resturant.length ?
-                resturant.map(resturantDetails => <div key={resturantDetails.resturant_id}>
-                <tbody class="thead-dark">
+                  Array.isArray(resturant) && resturant.length > 0 && resturant.map(resturantDetails => <div key={resturantDetails.resturant_id} class="card col-sm-4 col-12">
+                      
+
+                  <tbody class="thead-dark">
                     <tr>
                       <td class="col-4">{resturantDetails.resturant_name}</td>
-                      <td class="col-4">{resturantDetails.type_of_food}</td>
-                      <td class="col-4">{resturantDetails.michelin_star}</td>
-                      <td class="col-4">{resturantDetails.parking}</td>
-                      <td class="col-4">{resturantDetails.delivery}</td>
-                      <td class="col-4">{resturantDetails.pay_deposit}</td>
-                      <td class="col-4">{resturantDetails.evaluation}</td>
+                      <td class="col-3">{resturantDetails.type_of_food}</td>
+                      <td class="col-1">{resturantDetails.michelin_star}</td>
+                      <td class="col-1">{resturantDetails.parking}</td>
+                      <td class="col-1">{resturantDetails.delivery}</td>
+                      <td class="col-1">{resturantDetails.pay_deposit}</td>
+                      <td class="col-1">{resturantDetails.evaluation}</td>
                     </tr>
                   </tbody>
-                  </div>) : null
+                  </div>)
                 }
                 {
                   erroMsg ? <div col="12">{erroMsg}</div> : null
                 }
                 
-               </table>
+           
 
                <div class="col-12">
                 <div id="reply"></div>

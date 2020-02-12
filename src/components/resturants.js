@@ -42,18 +42,26 @@ class AllOpenResturants extends Component{
               <br/>
               <br/>
           
-              <div class="col-3">Name</div>
-              <div class="col-3">Type Of Food</div>
-              <div class="col-1">Michelin Star</div>
-              <div class="col-1">Parking?</div>
-              <div class="col-1">Delivery?</div>
-              <div class="col-1">Pay Deposit</div>
-              <div class="col-1">Evauation</div>
+              
                   
               {
                   Array.isArray(resturant) && resturant.length > 0 && resturant.map(resturantDetails => <div key={resturantDetails.resturant_id} class="card col-sm-4 col-12">
                       
 
+                      <div class="table-responsive">
+                        <table class="table">
+
+                        <thead>
+                        <tr>
+                        <th>Name</th>
+                        <th>Type Of Food</th>
+                        <th>Michelin Star</th>
+                        <th>Parking?</th>
+                        <th>Delivery?</th>
+                        <th>Pay Deposit</th>
+                        <th>Evauation</th>
+                        </tr>
+                    </thead>
                   <tbody class="thead-dark">
                     <tr>
                       <td class="col-4">{resturantDetails.resturant_name}</td>
@@ -65,6 +73,8 @@ class AllOpenResturants extends Component{
                       <td class="col-1">{resturantDetails.evaluation}</td>
                     </tr>
                   </tbody>
+                  </table>
+                  </div>
                   </div>)
                 }
                 {

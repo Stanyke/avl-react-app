@@ -39,7 +39,7 @@ class AllOpenResturants extends Component{
               <h2>Restaurant</h2>
 
             <div class="row">
-              <div class="col-5">
+              <div class="col-12 col-sm-5">
                 <select id="DayOfWeek" class="form-control" onChange={(value)=> this.setState({DayOfWeek:value.target.value})}>
                   <option value="">Choose Day Of Week</option>
                   <option value="sunday">Sunday</option>
@@ -52,7 +52,10 @@ class AllOpenResturants extends Component{
                 </select>
               </div>
               
-              <div class="col-5">
+              <br/>
+              <br/>
+              
+              <div class="col-12 col-sm-5">
                 <select id="HourOfDay" class="form-control" onChange={(value)=> this.setState({HourOfDay:value.target.value})}>
                   <option value="">Choose Hour Of The Day</option>
                   <option value="00">12 AM</option>
@@ -81,7 +84,10 @@ class AllOpenResturants extends Component{
                   <option value="23">11 PM</option>
                 </select>
               </div>
-              <div class="col-2">
+
+              <br/>
+              <br/>
+              <div class="col-12 col-sm-2">
                 <button type="submit" class="form-control btn btn-success" onClick={()=>this.filterRestaurant()}>Search</button>
               </div>
 
@@ -159,6 +165,27 @@ class AllOpenResturants extends Component{
         else if (this.state.HourOfDay === "")
         {
           errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Hour Of The Day Not Selected</strong></div>";
+        }
+        else
+        {
+          const filterDetails = {
+            day : this.state.DayOfWeek,
+            time : this.state.HourOfDay
+          }
+
+          const routerUrl = "http://avl-app.herokuapp.com/"+filterDetails.day+"/"+filterDetails.time;
+
+          axios.post(routerUrl,filterDetails)
+          .then(response=>{
+
+            if (response.status === 200)
+            {
+              errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button>"+response.data.data.sunday+"</div>";
+            }
+          }).catch((err) =>
+          {
+
+          })
         }
       }
     }

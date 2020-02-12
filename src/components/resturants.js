@@ -187,11 +187,9 @@ class AllOpenResturants extends Component{
               errorNotice.style.display = "none";
               allRestaurantsSpace.style.display = "none";
 
-              const receiptC = [];
+              const gottenFilteredRestaurants = response.data.resturants_open_such_date
 
-              const gottenFilteredRestaurants = {receiptC: response.data.resturants_open_such_date}
-
-              filteredRestaurantsSpace.innerHTML = Array.isArray(receiptC) && receiptC.length > 0 && receiptC.map(gottenFilteredRestaurantsDetails => <div key={gottenFilteredRestaurantsDetails.resturant_id} class="card col-sm-4 col-12">
+              filteredRestaurantsSpace.innerHTML = Array.isArray(gottenFilteredRestaurants) && gottenFilteredRestaurants.length > 0 && gottenFilteredRestaurants.map(gottenFilteredRestaurantsDetails => <div key={gottenFilteredRestaurantsDetails.resturant_id} class="card col-sm-4 col-12">
 
                   <div class="table-responsive">
                         <table class="table">

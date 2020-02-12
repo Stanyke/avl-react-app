@@ -21,11 +21,15 @@ class FilterResturants extends Component{
 
         if (this.state.DayOfWeek == "")
         {
-          errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Day Of The Week Not Selected</strong></div>";
+            document.getElementById('filterView').style.display = 'none';
+            errorNotice.style.display = 'block';
+            errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Day Of The Week Not Selected</strong></div>";
         }
         else if (this.state.HourOfDay == "")
         {
-          errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Hour Of The Day Not Selected</strong></div>";
+            document.getElementById('filterView').style.display = 'none';
+            errorNotice.style.display = 'block';
+            errorNotice.innerHTML = "<div class='alert alert-danger alert-dismissible fade show'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Hour Of The Day Not Selected</strong></div>";
         }
         else
         {

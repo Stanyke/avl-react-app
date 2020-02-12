@@ -5,6 +5,8 @@ import { createBrowserHistory as createHistory } from "history";
 
 import AllOpenResturants from './components/resturants';
 
+import FilterResturants from './components/filter-restaurant';
+
 
 const history = createHistory();
 
@@ -14,6 +16,8 @@ function App() {
       <Router history={history}>
         
         <Route path="/" exact component={AllOpenResturants} />
+
+        <Route path="/filter-restaurant" component={FilterResturants} />
       
     </Router>
     </div>
